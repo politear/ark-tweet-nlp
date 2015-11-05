@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 
 /**
  * Twokenize -- a tokenizer designed for Twitter text in English and some other European languages.
@@ -318,7 +318,7 @@ public class Twokenize {
      */
     public static String normalizeTextForTagger(String text) {
     	text = text.replaceAll("&amp;", "&");
-    	text = StringEscapeUtils.unescapeHtml(text);
+    	text = StringEscapeUtils.unescapeHtml4(text);
     	return text;
     }
 
