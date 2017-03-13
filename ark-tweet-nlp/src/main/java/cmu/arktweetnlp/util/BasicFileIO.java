@@ -227,9 +227,9 @@ public class BasicFileIO {
 	 * @throws IOException 
 	 */
 	public static BufferedReader getResourceReader(String resourceName) throws IOException {
-		assert resourceName.startsWith("/") : "Absolute path needed for resource";
-		
-		InputStream stream = BasicFileIO.class.getResourceAsStream(resourceName);
+		//assert resourceName.startsWith("/") : "Absolute path needed for resource";
+		ClassLoader cl = ClassLoader.getSystemClassLoader();
+		InputStream stream = cl.getResourceAsStream(resourceName);
 		if (stream == null) throw new IOException("failed to find resource " + resourceName);
 		//read in paths file
 		BufferedReader bReader = new BufferedReader(new InputStreamReader(
@@ -247,7 +247,12 @@ public class BasicFileIO {
 				return getResourceReader(fileOrResource);
 			}			
 		} catch (IOException e) {
-			throw new IOException("Neither file nor resource found for: " + fileOrResource);
+            try{
+                return getResourceReader(fileOrResource);
+            }catch (IOException ioe) {
+                throw new IOException("Neither file nor resource found for: " + fileOrResource);
+            }
+
 		}
 	}
 }
